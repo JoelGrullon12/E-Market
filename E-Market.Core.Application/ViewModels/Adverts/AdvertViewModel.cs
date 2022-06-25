@@ -34,18 +34,15 @@ namespace E_Market.Core.Application.ViewModels.Adverts
         public string ImgUrl4 { get; set; }
         #endregion
 
-        [DataType(DataType.Currency)]
         [Required(ErrorMessage ="Debe colocarle un precio al articulo")]
-        public string Price { get; set; }
+        public double Price { get; set; }
 
-        [DataType(DataType.Custom)]
         [Required(ErrorMessage ="Debe seleccionar una categoria para el articulo")]
-        public string CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         [DataType(DataType.DateTime)]
         [Required(ErrorMessage ="Debe colocarle una fecha de creacion al articulo")]
-        public string Creation { get; set; }
-
+        public DateTime PublishDate { get; set; }
 
     }
 }

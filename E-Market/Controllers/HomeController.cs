@@ -1,4 +1,8 @@
-﻿using E_Market.Models;
+﻿using E_Market.Core.Application.Helpers;
+using E_Market.Core.Application.Interfaces.Services;
+using E_Market.Core.Application.ViewModels.User;
+using E_Market.Models;
+using E_Market.Core.Application.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -6,32 +10,71 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using E_Market.Middleware;
 
 namespace E_Market.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IUserService _userService;
+        private readonly ValidateSession _session;
+
+        public HomeController(IUserService userService, ValidateSession session)
         {
-            _logger = logger;
+            _userService = userService;
+            _session = session;
         }
 
         public IActionResult Index()
         {
+            if(_session.HasUser())
+                return RedirectToRoute(new { controller = "Adverts", action = "Index" });
+
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public async Task<IActionResult> Index(LoginViewModel vm)
         {
+            if (!ModelState.IsValid)
+                return View(vm);
+
+            UserViewModel user = await _userService.Login(vm);
+
+            if (user != null)
+            {
+                HttpContext.Session.Set<UserViewModel>("user", user);
+                return RedirectToRoute(new { controller = "Adverts", action = "Index" });
+            }
+            else
+                ModelState.AddModelError("userValidation", "Usuario y/o contraseña incorrecta");
+
+            return View(vm);
+        }
+
+        public IActionResult Register()
+        {
+            if (_session.HasUser())
+                return RedirectToRoute(new { controller = "Adverts", action = "Index" });
+
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public async Task<IActionResult> Register(UserViewModel vm)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (!ModelState.IsValid)
+                return View(vm);
+
+            await _userService.DML(vm, DMLAction.Insert);
+            return RedirectToRoute(new { controller = "Adverts", action = "Index" });
+        }
+
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Remove("user");
+            return RedirectToRoute(new { controller = "Home", action = "Index" });
         }
     }
 }

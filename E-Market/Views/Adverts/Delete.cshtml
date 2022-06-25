@@ -1,0 +1,28 @@
+﻿@using E_Market.Core.Application.ViewModels.Adverts
+@model AdvertViewModel
+@{
+    ViewData["Title"] = "Eliminar Anuncio";
+}
+
+
+<div class="card mb-3">
+  <img src="@Model.ImgUrl1" class="card-img-top" alt="Imagen de @Model.Name">
+  <div class="card-body">
+    <h5 class="card-title">@Model.Name</h5>
+    <p class="card-text">¿Esta seguro que quiere eliminar este Anuncio? Esta accion no se puede deshacer</p>
+    <form method="post" asp-controller="Pokemons" asp-action="Delete">
+        <a asp-controller="Pokemons" asp-action="Index" class="btn btn-primary">Cancelar</a>
+        <input type="submit" class="btn btn-danger" value="Eliminar" />
+        <input type="hidden" asp-for="@Model.Id" />
+        <input type="hidden" asp-for="@Model.Name" />
+        <input type="hidden" asp-for="@Model.Description" />
+        <input type="hidden" asp-for="@Model.ImgUrl1" />
+        <input type="hidden" asp-for="@Model.ImgUrl2" />
+        <input type="hidden" asp-for="@Model.ImgUrl3" />
+        <input type="hidden" asp-for="@Model.ImgUrl4" />
+        <input type="hidden" asp-for="@Model.Price" />
+        <input type="hidden" asp-for="@Model.CategoryId" />
+        <input type="hidden" asp-for="@Model.PublishDate" />
+    </form>
+  </div>
+</div>

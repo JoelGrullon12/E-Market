@@ -1,0 +1,30 @@
+﻿@using E_Market.Core.Application.ViewModels.Category
+@model CategoryViewModel
+@{
+    ViewData["Title"] = "Agregar Categoria";
+}
+
+<div class="row">
+  <div class="col-sm-6 offset-3">
+    <div class="card">
+  <h5 class="card-header">Nueva categoria</h5>
+  <div class="card-body">
+        
+        <form method="post" asp-action="Create" asp-controller="Categories">
+          <div class="mb-3">
+            <label asp-for="Name" class="form-label">Nombre</label>
+            <input asp-for="Name" class="form-control">
+            <span asp-validation-for="Name" class="text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label asp-for="Description" class="form-label">Descripcion</label>
+            <input asp-for="Description" class="form-control">
+            <span asp-validation-for="Description" class="text-danger"></span>
+          </div>
+          <a class="btn btn-outline-warning" asp-controller="Category" asp-action="Index">Volver</a>
+          <button type="submit" class="btn btn-outline-primary">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

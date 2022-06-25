@@ -1,0 +1,57 @@
+﻿@using E_Market.Core.Application.ViewModels.User
+@model UserViewModel
+@{
+    ViewData["Title"] = "Registrarse";
+}
+
+<div class="row">
+  <div class="col-sm-6 offset-3">
+    <div class="card">
+  <h5 class="card-header">Nuevo Usuario</h5>
+  <div class="card-body">
+        
+        <form method="post" asp-action="Register" asp-controller="Home">
+          <div class="mb-3">
+            <label asp-for="Name" class="form-label">Nombre</label>
+            <input asp-for="Name" class="form-control">
+            <span asp-validation-for="Name" class="text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label asp-for="LastName" class="form-label">Apellido</label>
+            <input asp-for="LastName" class="form-control">
+            <span asp-validation-for="LastName" class="text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input asp-for="Email" class="form-control">
+            <span asp-validation-for="Email" class="text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label asp-for="Phone" class="form-label">Telefono</label>
+            <input asp-for="Phone" class="form-control">
+            <span asp-validation-for="Phone" class="text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label asp-for="UserName" class="form-label">Usuario</label>
+            <input asp-for="UserName" class="form-control">
+            <span asp-validation-for="UserName" class="text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label asp-for="Password" class="form-label">Contraseña</label>
+            <input asp-for="Password" class="form-control">
+            <span asp-validation-for="Password" class="text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label asp-for="ConfPassword" class="form-label">Password</label>
+            <input asp-for="ConfPassword" class="form-control">
+            <span asp-validation-for="ConfPassword" class="text-danger"></span>
+          </div>
+          <a class="btn btn-outline-warning" asp-controller="Home" asp-action="Index">Volver</a>
+          <button type="submit" class="btn btn-outline-primary">Registrarse</button>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>

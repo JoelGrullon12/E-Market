@@ -1,0 +1,47 @@
+﻿@using E_Market.Core.Application.ViewModels.Adverts
+@model AdvertListViewModel
+@{
+    ViewData["Title"] = "Mis Anuncios";
+}
+
+<link rel="stylesheet" href="~/css/adverts.css" />
+
+
+<div class="row mb-3">
+    <h2 class="col-3">
+        Mis Anuncios
+    </h2>
+    <div class="col-3 offset-6">
+        <a class="btn btn-outline-success" asp-controller="Adverts" asp-action="Create">Añadir Anuncio</a>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+
+    @if (Model == null || Model.Adverts.Count == 0)
+    {
+        <h3>
+            Aun no tienes anuncios a tu nombre, agrega uno para que los demas lo vean
+        </h3>
+    }
+    else
+    {
+        @foreach(ShowAdvertViewModel vm in Model.Adverts)
+        {
+            <div class="col">
+            <div class="card h-100">
+                <img src="@vm.ImgUrl" class="card-img-top">
+                <div class="card-body">
+                <h5 class="card-title">@vm.Name</h5>
+                <p class="card-text">@vm.Description</p>
+                <small>@vm.Category - $@vm.Price</small>
+                <div>
+                    <a asp-controller="Categories" asp-action="Edit" asp-route-id="vm.Id" class="btn btn-sm btn-outline-info">Editar</a>
+                    <a asp-controller="Categories" asp-action="Delete" asp-route-id="vm.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                </div>    
+            </div>
+            </div>
+            </div>
+        }
+    }
+</div>

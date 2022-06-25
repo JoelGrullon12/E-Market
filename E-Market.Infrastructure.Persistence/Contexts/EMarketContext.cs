@@ -1,23 +1,51 @@
-﻿using E_Market.Core.Domain.Entities;
+﻿using E_Market.Core.Application.Helpers;
+using E_Market.Core.Application.ViewModels.User;
+using E_Market.Core.Domain.Common;
+using E_Market.Core.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace E_Market.Infrastructure.Persistence.Contexts
 {
     public class EMarketContext:DbContext
     {
-        public EMarketContext(DbContextOptions<EMarketContext> options) : base(options)
-        {
+        private readonly IHttpContextAccessor _httpContext;
 
+        public EMarketContext(DbContextOptions<EMarketContext> options, IHttpContextAccessor httpContext) : base(options)
+        {
+            _httpContext = httpContext;
         }
 
         public DbSet<Advert> Adverts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<User> Users { get; set; }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            foreach(var entry in ChangeTracker.Entries<AuditableBaseEntity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.Created = DateTime.Now;
+                        entry.Entity.CreatedBy = _httpContext.HttpContext.Session.Get<UserViewModel>("user").UserName;
+                        break;
+
+                    case EntityState.Modified:
+                        entry.Entity.Modified = DateTime.Now;
+                        entry.Entity.ModifiedBy = _httpContext.HttpContext.Session.Get<UserViewModel>("user").UserName;
+                        break;
+                }
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

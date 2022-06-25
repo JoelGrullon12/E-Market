@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E_Market.Core.Application.ViewModels.User
 {
-    public class RegisterViewModel
+    public class UserViewModel
     {
         public int Id { get; set; }
 
@@ -20,7 +20,7 @@ namespace E_Market.Core.Application.ViewModels.User
         public string LastName { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        [Required(ErrorMessage ="Debe proporcionar su correo electronico")]
+        [Required(ErrorMessage ="Debe proporcionar un email valido")]
         public string Email { get; set; }
 
         [DataType(DataType.PhoneNumber)]

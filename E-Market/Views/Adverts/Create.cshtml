@@ -1,0 +1,67 @@
+﻿@using E_Market.Core.Application.ViewModels.Adverts
+@using E_Market.Core.Application.ViewModels.Category
+@model SaveAdvertViewModel
+@{
+    ViewData["Title"] = "Crear Anuncio";
+}
+
+<div class="row">
+  <div class="col-sm-6 offset-3">
+    <div class="card">
+  <h5 class="card-header">Nuevo anuncio</h5>
+  <div class="card-body">
+        
+        <form method="post" asp-action="Create" asp-controller="Adverts">
+          <div class="mb-3">
+            <label asp-for="Advert.Name" class="form-label">Nombre</label>
+            <input asp-for="Advert.Name" class="form-control">
+            <span asp-validation-for="Advert.Name" class="text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label asp-for="Advert.Description" class="form-label">Descripcion</label>
+            <input asp-for="Advert.Description" class="form-control">
+            <span asp-validation-for="Advert.Description" class="text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label asp-for="Advert.ImgUrl1" class="form-label">Imagen principal</label>
+            <input asp-for="Advert.ImgUrl1" class="form-control">
+            <span asp-validation-for="Advert.ImgUrl1" class="text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label asp-for="Advert.ImgUrl2" class="form-label">Imagen 2</label>
+            <input asp-for="Advert.ImgUrl2" class="form-control">
+            <span asp-validation-for="Advert.ImgUrl2" class="text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label asp-for="Advert.ImgUrl3" class="form-label">Imagen 3</label>
+            <input asp-for="Advert.ImgUrl3" class="form-control">
+            <span asp-validation-for="Advert.ImgUrl3" class="text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label asp-for="Advert.ImgUrl4" class="form-label">Imagen 4</label>
+            <input asp-for="Advert.ImgUrl4" class="form-control">
+            <span asp-validation-for="Advert.ImgUrl4" class="text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label asp-for="Advert.Price" class="form-label">Precio</label>
+            <input asp-for="Advert.Price" class="form-control">
+            <span asp-validation-for="Advert.Price" class="text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label asp-for="Advert.CategoryId" class="form-label">Categoria</label>
+            <select asp-for="Advert.CategoryId" class="form-select">
+                @foreach(CategoryViewModel t in Model.Categories){
+                    <option value="@t.Id">@t.Name</option>
+                }
+            </select>
+            <span asp-validation-for="Advert.CategoryId" class="text-danger"></span>
+          </div>
+          <a class="btn btn-outline-warning" asp-controller="Adverts" asp-action="Index">Volver</a>
+          <button type="submit" class="btn btn-outline-primary">Guardar</button>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>

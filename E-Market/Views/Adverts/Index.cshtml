@@ -1,0 +1,39 @@
+﻿@using E_Market.Core.Application.ViewModels.Adverts
+@model AdvertListViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="~/css/adverts.css" />
+
+<div class="row" style="margin:15px;">
+    <h2>Inicio</h2>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+
+    @if (Model == null || Model.Adverts.Count == 0)
+    {
+        <h3>
+            No hay Anuncios agregados en la base de datos
+        </h3>
+    }
+    else
+    {
+        @foreach(ShowAdvertViewModel vm in Model.Adverts)
+        {
+            <a asp-action="Advert" asp-controller="Adverts" asp-route-id="@vm.Id">
+              <div class="col">
+                <div class="card h-100">
+                  <img src="@vm.ImgUrl" class="card-img-top">
+                  <div class="card-body">
+                    <h5 class="card-title">@vm.Name</h5>
+                    <p class="card-text">@vm.Description</p>
+                    <small>@vm.Category - $@vm.Price</small>
+                  </div>
+                </div>
+              </div>
+            </a>
+        }
+    }
+</div>

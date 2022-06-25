@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using E_Market.Core.Application.Interfaces.Services;
+using E_Market.Core.Application.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -12,7 +14,9 @@ namespace E_Market.Core.Application
     {
         public static void AddApplicationLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            //service.
+            services.AddTransient<IAdvertService, AdvertService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IUserService, UserService>();
         }
     }
 }
