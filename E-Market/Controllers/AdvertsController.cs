@@ -39,7 +39,7 @@ namespace E_Market.Controllers
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
 
             AdvertListViewModel vm = new();
-            vm.Adverts = await _advertService.GetForShowViewModel();
+            vm.Adverts = await _advertService.GetMyAdvertsViewModel();
             return View(vm);
         }
 

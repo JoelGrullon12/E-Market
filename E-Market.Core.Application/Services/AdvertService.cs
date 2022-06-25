@@ -47,6 +47,9 @@ namespace E_Market.Core.Application.Services
         public async Task<List<ShowAdvertViewModel>> GetForShowViewModel()
         {
             var adList = await _adRepository.GetAllWithCategoryAsync();
+
+            adList = adList.Where(ad => ad.UserId != _user.Id).ToList();
+
             return adList.Select(t => new ShowAdvertViewModel
             {
                 Id = t.Id,
@@ -56,6 +59,24 @@ namespace E_Market.Core.Application.Services
                 Description = Stuff.SetDescription(t.Description),
                 Category = t.Category.Name
             }).ToList();
+        }
+
+        public async Task<List<ShowAdvertViewModel>> GetMyAdvertsViewModel()
+        {
+            var adList = await _adRepository.GetAllWithCategoryAsync();
+
+            adList = adList.Where(ad => ad.UserId == _user.Id).ToList();
+
+            return adList.Select(t => new ShowAdvertViewModel
+            {
+                Id = t.Id,
+                ImgUrl = t.ImgUrl1,
+                Name = t.Name,
+                Price = t.Price,
+                Description = Stuff.SetDescription(t.Description),
+                Category = t.Category.Name
+            }).ToList();
+
         }
 
         public async Task<AdvertViewModel> GetByIdViewModel(int id)

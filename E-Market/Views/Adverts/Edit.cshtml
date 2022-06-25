@@ -18,9 +18,9 @@
             <input asp-for="Advert.Name" class="form-control">
             <span asp-validation-for="Advert.Name" class="text-danger"></span>
           </div>
-          <div class="mb-3">
-            <label asp-for="Advert.Description" class="form-label">Descripcion</label>
-            <input asp-for="Advert.Description" class="form-control">
+          <div class="form-floating" style="margin: 20px auto;">
+            <textarea asp-for="Advert.Description" class="form-control" placeholder="Ingrese la descripcion del producto" style="height: 150px"></textarea>
+            <label asp-for="Advert.Description">Descripion</label>
             <span asp-validation-for="Advert.Description" class="text-danger"></span>
           </div>
           <div class="mb-3">
@@ -57,8 +57,10 @@
             </select>
             <span asp-validation-for="Advert.CategoryId" class="text-danger"></span>
           </div>
-          <a class="btn btn-outline-warning" asp-controller="Adverts" asp-action="Index">Volver</a>
-          <button type="submit" class="btn btn-outline-primary">Registrarse</button>
+          <a class="btn btn-outline-warning" asp-controller="Adverts" asp-action="MyAdverts">Volver</a>
+          <button type="submit" class="btn btn-outline-primary">Guardar</button>
+
+          <input type="hidden" asp-for="Advert.Id" />
         </form>
 
 

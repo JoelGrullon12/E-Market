@@ -13,12 +13,12 @@ namespace E_Market.Core.Application.Helpers
         {
             string[] words=text.Split(' ');
             string description = "";
-            int e = words.Length < 11 ? words.Length - 1 : 11;
+            int e = words.Length < 16 ? words.Length - 1 : 16;
             for (int i = 0; i < e; i++)
             {
                 description += words[i] + " ";
             }
-            description += e == 11 ? words[e] + "..." : words[e];
+            description += e == 16 ? words[e] + "..." : words[e];
             return description;
         }
 

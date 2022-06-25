@@ -67,8 +67,9 @@ namespace E_Market.Controllers
             if (!ModelState.IsValid)
                 return View(vm);
 
+            HttpContext.Session.Set<UserViewModel>("user", vm);
             await _userService.DML(vm, DMLAction.Insert);
-            return RedirectToRoute(new { controller = "Adverts", action = "Index" });
+            return RedirectToRoute(new { controller = "Home", action = "LogOut" });
         }
 
         public IActionResult LogOut()
