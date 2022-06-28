@@ -28,5 +28,12 @@ namespace E_Market.Infrastructure.Persistence.Repositories
                 .FirstOrDefaultAsync(user => user.UserName == vm.UserName && user.Password == pass);
             return user;
         }
+
+        public async Task<User> CheckUserAsync(string userName)
+        {
+            User user = await _dbContext.Set<User>()
+                .FirstOrDefaultAsync(user => user.UserName == userName);
+            return user;
+        }
     }
 }

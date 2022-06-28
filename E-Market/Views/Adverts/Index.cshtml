@@ -1,12 +1,72 @@
 ﻿@using E_Market.Core.Application.ViewModels.Adverts
+@using E_Market.Core.Application.ViewModels.Category
 @model AdvertListViewModel
 @{
     ViewData["Title"] = "Index";
+    int i=0;
+
+    string namesearch = ViewData["search"] == null ? "" : ViewData["search"].ToString();
 }
 
 <link rel="stylesheet" href="~/css/adverts.css" />
 
-<div class="row" style="margin:15px;">
+<div class="row">
+
+    <div class="col-md-2" style="left:0px;">
+        <div class="card" style="position:fixed; margin:0px 0px; max-width:160px;">
+          <div class="card-body">
+            <h5 class="card-title">Categorias</h5>
+            <form method="post" asp-controller="Adverts" asp-action="Index">
+                
+                    @if (Model.Categories.Count != 0)
+                    {
+                        @foreach (CategoryViewModel cat in Model.Categories)
+                        {
+                            <div class="mb-3 form-check" style="padding-left:0px">
+                                @Html.CheckBoxFor(x=>x.Selected[i])
+                                <label class="form-check-label" for="@Model.Selected[i]">@cat.Name</label>
+                                <input type="hidden" asp-for="@cat.Name">
+                            </div>
+                            i++;
+                        }
+                        <div class="row" style="width:auto; margin-bottom: 10px;">
+                            <button type="submit" class="btn btn-primary">Filtrar</button>
+                        </div>
+                        <div class="row" style="width:auto;">
+                            <a asp-controller="Adverts" asp-action="Index" class="btn btn-danger">Quitar Filtros</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <h6>No hay categorias agregadas aun</h6>
+                        <div class="row" style="width:auto;">
+                            <a asp-controller="Categories" asp-action="Create" class="btn btn-outline-success">Agregar Categoria</a>
+                        </div>
+                    }
+                </form>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-md-10">
+        <form method="get" id="search-form" asp-controller="Adverts" asp-action="Index">
+    <div class="row" id="search-bar" asp-for="Search">
+        <div class="col-12">
+            <div class="row no-gutters">
+                <div class="col-lg-3 col-md-4 col-sm-12 p-0 offset-8">
+                    <input name="namesrch" type="text" placeholder="Buscar..." class="form-control" value="@namesearch">
+                </div>
+                <div class="col-lg-1 col-md-3 col-sm-12 p-0">
+                    <button type="submit" class="btn btn-outline-secondary btn-base">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+        <div class="row" style="margin:15px;">
     <h2>Inicio</h2>
 </div>
 
@@ -22,8 +82,8 @@
     {
         @foreach(ShowAdvertViewModel vm in Model.Adverts)
         {
+            <div class="col">
             <a asp-action="Advert" asp-controller="Adverts" asp-route-id="@vm.Id">
-              <div class="col">
                 <div class="card h-100">
                   <img src="@vm.ImgUrl" class="card-img-top">
                   <div class="card-body">
@@ -32,8 +92,14 @@
                     <small>@vm.Category - $@vm.Price</small>
                   </div>
                 </div>
-              </div>
             </a>
+            </div>
         }
     }
 </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="~/js/jquery.js"></script>
+<script type="text/javascript" src="~/js/Adverts.js"></script>

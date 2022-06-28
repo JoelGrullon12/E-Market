@@ -40,7 +40,15 @@ namespace E_Market.Controllers
             if (!ModelState.IsValid)
                 return View(vm);
 
-            UserViewModel user = await _userService.Login(vm);
+            UserViewModel user = await _userService.CheckUser(vm.UserName);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("userNotExistent", "Este nombre de usuario no existe");
+                return View(vm);
+            }
+            
+            user = await _userService.Login(vm);
 
             if (user != null)
             {
@@ -48,7 +56,7 @@ namespace E_Market.Controllers
                 return RedirectToRoute(new { controller = "Adverts", action = "Index" });
             }
             else
-                ModelState.AddModelError("userValidation", "Usuario y/o contraseña incorrecta");
+                ModelState.AddModelError("userValidation", "Contraseña incorrecta");
 
             return View(vm);
         }
@@ -66,6 +74,14 @@ namespace E_Market.Controllers
         {
             if (!ModelState.IsValid)
                 return View(vm);
+
+            UserViewModel user = await _userService.CheckUser(vm.UserName);
+
+            if (user != null)
+            {
+                ViewData["userExistent"]="Este nombre de usuario ya esta en uso";
+                return View(vm);
+            }
 
             HttpContext.Session.Set<UserViewModel>("user", vm);
             await _userService.DML(vm, DMLAction.Insert);

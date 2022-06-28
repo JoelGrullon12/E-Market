@@ -22,12 +22,14 @@ namespace E_Market.Core.Application.Services
 
         public async Task<List<CategoryViewModel>> GetAllViewModel()
         {
-            var catList = await _catRepository.GetAllAsync();
+            var catList = await _catRepository.GetAllWithIncludesAsync(new List<string>() { "Adverts" });
             return catList.Select(t => new CategoryViewModel
             {
                 Id = t.Id,
                 Name = t.Name,
-                Description = t.Description
+                Description = t.Description,
+                Adverts=t.Adverts.ToList(),
+                AdvertCount=t.Adverts.Count,
             }).ToList();
         }
 

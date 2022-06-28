@@ -12,7 +12,7 @@
 
           <h5 class="card-title">Editar Anuncio</h5>
         
-        <form method="post" asp-action="Edit" asp-controller="Adverts">
+        <form method="post" enctype="multipart/form-data" asp-action="Edit" asp-controller="Adverts">
           <div class="mb-3">
             <label asp-for="Advert.Name" class="form-label">Nombre</label>
             <input asp-for="Advert.Name" class="form-control">
@@ -24,24 +24,47 @@
             <span asp-validation-for="Advert.Description" class="text-danger"></span>
           </div>
           <div class="mb-3">
-            <label asp-for="Advert.ImgUrl1" class="form-label">Imagen principal</label>
-            <input asp-for="Advert.ImgUrl1" class="form-control">
-            <span asp-validation-for="Advert.ImgUrl1" class="text-danger"></span>
+            <label asp-for="Advert.Img1" class="form-label">Imagen 1</label>
+
+            <div class="row" id="img-1">
+                <img src="@Model.Advert.ImgUrl1" class="img-fluid">
+            </div>
+
+            <input asp-for="Advert.Img1" class="form-control" onclick="deleteImg(1)">
+            <span asp-validation-for="Advert.Img1" class="text-danger"></span>
           </div>
           <div class="mb-3">
-            <label asp-for="Advert.ImgUrl2" class="form-label">Imagen 2</label>
-            <input asp-for="Advert.ImgUrl2" class="form-control">
-            <span asp-validation-for="Advert.ImgUrl2" class="text-danger"></span>
+            <label asp-for="Advert.Img2" class="form-label">Imagen 2</label>
+            @if (Model.Advert.ImgUrl2 != null)
+            {
+                <div class="row" id="img-2">
+                    <img src="@Model.Advert.ImgUrl2" class="img-fluid">   
+                </div>
+            }
+            <input asp-for="Advert.Img2" class="form-control" onclick="deleteImg(2)">
+            <span asp-validation-for="Advert.Img2" class="text-danger"></span>
           </div>
           <div class="mb-3">
-            <label asp-for="Advert.ImgUrl3" class="form-label">Imagen 3</label>
-            <input asp-for="Advert.ImgUrl3" class="form-control">
-            <span asp-validation-for="Advert.ImgUrl3" class="text-danger"></span>
+            <label asp-for="Advert.Img3" class="form-label">Imagen 3</label>
+            @if (Model.Advert.ImgUrl3 != null)
+            {
+                <div class="row" id="img-3">
+                    <img src="@Model.Advert.ImgUrl3" class="img-fluid">   
+                </div>
+            }
+            <input asp-for="Advert.Img3" class="form-control" onclick="deleteImg(3)">
+            <span asp-validation-for="Advert.Img3" class="text-danger"></span>
           </div>
           <div class="mb-3">
-            <label asp-for="Advert.ImgUrl4" class="form-label">Imagen 4</label>
-            <input asp-for="Advert.ImgUrl4" class="form-control">
-            <span asp-validation-for="Advert.ImgUrl4" class="text-danger"></span>
+            <label asp-for="Advert.Img4" class="form-label">Imagen 4</label>
+            @if (Model.Advert.ImgUrl4 != null)
+            {
+                <div class="row" id="img-4">
+                    <img src="@Model.Advert.ImgUrl4" class="img-fluid">   
+                </div>
+            }
+            <input asp-for="Advert.Img4" class="form-control" onclick="deleteImg(4)">
+            <span asp-validation-for="Advert.Img4" class="text-danger"></span>
           </div>
           <div class="mb-3">
             <label asp-for="Advert.Price" class="form-label">Precio</label>
@@ -68,3 +91,6 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript" src="~/js/jquery.js"></script>
+<script type="text/javascript" src="~/js/editAdvert.js"></script>

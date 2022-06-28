@@ -8,7 +8,8 @@
   <h5 class="card-header">Eliminar Categoria</h5>
   <div class="card-body">
     <h5 class="card-title">@Model.Name</h5>
-    <p class="card-text">¿Esta seguro que quiere eliminar esta Categoria? Esta accion no se puede deshacer</p>
+    <p class="card-text">Si elimina esta categoria tambien se eliminaran todos los productos de la misma<br />
+        ¿Esta seguro que quiere eliminar esta Categoria? Esta accion no se puede deshacer</p>
     <form method="post" asp-controller="Categories" asp-action="Delete">
         <a asp-controller="Categories" asp-action="Index" class="btn btn-primary">Cancelar</a>
         <input type="submit" class="btn btn-danger" value="Eliminar" />

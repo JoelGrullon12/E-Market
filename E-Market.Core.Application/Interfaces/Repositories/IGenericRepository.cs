@@ -13,5 +13,7 @@ namespace E_Market.Core.Application.Interfaces.Repositories
         Task DeleteAsync(T t);
         Task<List<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
+        Task<List<T>> GetAllWithIncludesAsync(List<string> props);
+        Task<T> GetByIdWithIncludeAsync(int id, List<string> props);
     }
 }

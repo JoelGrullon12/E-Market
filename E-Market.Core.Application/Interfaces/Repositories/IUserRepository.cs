@@ -11,5 +11,6 @@ namespace E_Market.Core.Application.Interfaces.Repositories
     public interface IUserRepository:IGenericRepository<User>
     {
         Task<User> LoginAsync(LoginViewModel vm);
+        Task<User> CheckUserAsync(string userName);
     }
 }

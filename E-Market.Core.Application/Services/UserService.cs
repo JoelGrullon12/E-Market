@@ -97,5 +97,26 @@ namespace E_Market.Core.Application.Services
 
             return userVM;
         }
+
+        public async Task<UserViewModel> CheckUser(string userName)
+        {
+            User user = await _userRepository.CheckUserAsync(userName);
+
+            if (user == null)
+                return null;
+
+            UserViewModel userVM = new()
+            {
+                Id = user.Id,
+                Name = user.Name,
+                LastName = user.LastName,
+                Email = user.Email,
+                Phone = user.Phone,
+                UserName = user.UserName,
+                Password = user.Password
+            };
+
+            return userVM;
+        }
     }
 }

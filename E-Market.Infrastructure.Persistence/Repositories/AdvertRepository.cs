@@ -19,9 +19,10 @@ namespace E_Market.Infrastructure.Persistence.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<List<Advert>> GetAllWithCategoryAsync()
+        public override async Task<Advert> AddAsync(Advert ad)
         {
-            return await _dbContext.Set<Advert>().Include("Category").ToListAsync();
+            await base.AddAsync(ad);
+            return ad;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,17 +21,12 @@ namespace E_Market.Core.Application.ViewModels.Adverts
         public string Description { get; set; }
 
         #region Imagenes
-        [DataType(DataType.Upload)]
-        [Required(ErrorMessage ="Debe proporcionar al menos una imagen del articulo")]
         public string ImgUrl1 { get; set; }
 
-        [DataType(DataType.Upload)]
         public string ImgUrl2 { get; set; }
 
-        [DataType(DataType.Upload)]
         public string ImgUrl3 { get; set; }
 
-        [DataType(DataType.Upload)]
         public string ImgUrl4 { get; set; }
         #endregion
 
@@ -43,6 +39,18 @@ namespace E_Market.Core.Application.ViewModels.Adverts
         [DataType(DataType.DateTime)]
         [Required(ErrorMessage ="Debe colocarle una fecha de creacion al articulo")]
         public DateTime PublishDate { get; set; }
+
+        [DataType(DataType.Upload)]
+        public IFormFile Img1 { get; set; }
+
+        [DataType(DataType.Upload)]
+        public IFormFile Img2 { get; set; }
+        
+        [DataType(DataType.Upload)]
+        public IFormFile Img3 { get; set; }
+        
+        [DataType(DataType.Upload)]
+        public IFormFile Img4 { get; set; }
 
     }
 }

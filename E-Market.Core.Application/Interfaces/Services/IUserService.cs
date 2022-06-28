@@ -10,5 +10,6 @@ namespace E_Market.Core.Application.Interfaces.Services
     public interface IUserService : IGenericService<UserViewModel>
     {
         Task<UserViewModel> Login(LoginViewModel vm);
+        Task<UserViewModel> CheckUser(string userName);
     }
 }

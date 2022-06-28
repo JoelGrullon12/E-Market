@@ -1,4 +1,5 @@
-﻿using System;
+﻿using E_Market.Core.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,5 +19,9 @@ namespace E_Market.Core.Application.ViewModels.Category
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "Debe colocar una descripcion para la categoria")]
         public string Description { get; set; }
+
+        public List<Advert> Adverts { get; set; }
+        public int AdvertCount { get; set; }
+        public int UserCount { get; set; }
     }
 }

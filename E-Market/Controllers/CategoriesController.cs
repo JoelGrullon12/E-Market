@@ -1,8 +1,10 @@
 ﻿using E_Market.Core.Application.Helpers;
 using E_Market.Core.Application.Interfaces.Services;
 using E_Market.Core.Application.ViewModels.Category;
+using E_Market.Core.Domain.Entities;
 using E_Market.Middleware;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace E_Market.Controllers
@@ -22,7 +24,27 @@ namespace E_Market.Controllers
             if (!_session.HasUser())
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
 
-            return View(await _catService.GetAllViewModel());
+            List<CategoryViewModel> cats = await _catService.GetAllViewModel();
+            List<CategoryViewModel> catVm = new();
+
+            List<int> userIds= new List<int>();
+
+            foreach(CategoryViewModel cat in cats)
+            {
+                foreach(Advert ad in cat.Adverts)
+                {
+                    if (!userIds.Contains(ad.UserId))
+                    {
+                        userIds.Add(ad.UserId);
+                    }
+                }
+
+                cat.UserCount=userIds.Count;
+                userIds = new();
+                catVm.Add(cat);
+            }
+
+            return View(catVm);
         }
 
         public IActionResult Create()

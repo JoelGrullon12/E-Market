@@ -9,6 +9,6 @@ namespace E_Market.Core.Application.Interfaces.Repositories
 {
     public interface IAdvertRepository:IGenericRepository<Advert>
     {
-        Task<List<Advert>> GetAllWithCategoryAsync();
+        Task<Advert> AddAsync(Advert ad);
     }
 }

@@ -10,8 +10,17 @@
     <div class="card">
   <h5 class="card-header">Nuevo anuncio</h5>
   <div class="card-body">
-        
-        <form method="post" asp-action="Create" asp-controller="Adverts">
+                @if (Model.Categories.Count == 0)
+                {
+                    <h2 class="text-danger">Error</h2>
+                    <p class="text-danger">No hay categorias agregadas a la base de datos, 
+                        debe existir al menos una categoria para poder agregar productos, 
+                        cree una categoria para empezar</p>
+                    <a class="btn btn-outline-success" asp-controller="Categories" asp-action="Create">Crear Categoria</a>
+                }
+                else
+                {
+                <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Adverts">
           <div class="mb-3">
             <label asp-for="Advert.Name" class="form-label">Nombre</label>
             <input asp-for="Advert.Name" class="form-control">
@@ -23,28 +32,28 @@
             <span asp-validation-for="Advert.Description" class="text-danger"></span>
           </div>
           <div class="mb-3">
-            <label asp-for="Advert.ImgUrl1" class="form-label">Imagen principal</label>
-            <input asp-for="Advert.ImgUrl1" class="form-control">
-            <span asp-validation-for="Advert.ImgUrl1" class="text-danger"></span>
+            <label asp-for="Advert.Img1" class="form-label">Seleccione las imagenes:</label>
+            <input asp-for="Advert.Img1" class="form-control" required>
+            <span asp-validation-for="Advert.Img1" class="text-danger"></span>
           </div>
           <div class="mb-3">
-            <label asp-for="Advert.ImgUrl2" class="form-label">Imagen 2</label>
-            <input asp-for="Advert.ImgUrl2" class="form-control">
-            <span asp-validation-for="Advert.ImgUrl2" class="text-danger"></span>
+            <label asp-for="Advert.Img2" class="form-label">Imagen 2</label>
+            <input asp-for="Advert.Img2" class="form-control" >
+            <span asp-validation-for="Advert.Img2" class="text-danger"></span>
           </div>
           <div class="mb-3">
-            <label asp-for="Advert.ImgUrl3" class="form-label">Imagen 3</label>
-            <input asp-for="Advert.ImgUrl3" class="form-control">
-            <span asp-validation-for="Advert.ImgUrl3" class="text-danger"></span>
+            <label asp-for="Advert.Img3" class="form-label">Imagen 3</label>
+            <input asp-for="Advert.Img3" class="form-control" >
+            <span asp-validation-for="Advert.Img3" class="text-danger"></span>
           </div>
           <div class="mb-3">
-            <label asp-for="Advert.ImgUrl4" class="form-label">Imagen 4</label>
-            <input asp-for="Advert.ImgUrl4" class="form-control">
-            <span asp-validation-for="Advert.ImgUrl4" class="text-danger"></span>
+            <label asp-for="Advert.Img4" class="form-label">Imagen 4</label>
+            <input asp-for="Advert.Img4" class="form-control" >
+            <span asp-validation-for="Advert.Img4" class="text-danger"></span>
           </div>
           <div class="mb-3">
             <label asp-for="Advert.Price" class="form-label">Precio</label>
-            <input asp-for="Advert.Price" class="form-control">
+            <input type="number" step="any" asp-for="Advert.Price" class="form-control">
             <span asp-validation-for="Advert.Price" class="text-danger"></span>
           </div>
           <div class="mb-3">
@@ -56,10 +65,10 @@
             </select>
             <span asp-validation-for="Advert.CategoryId" class="text-danger"></span>
           </div>
-          <a class="btn btn-outline-warning" asp-controller="Adverts" asp-action="Index">Volver</a>
+          <a class="btn btn-outline-warning" asp-controller="Adverts" asp-action="MyAdverts">Volver</a>
           <button type="submit" class="btn btn-outline-primary">Guardar</button>
         </form>
-
+        }
 
       </div>
     </div>
